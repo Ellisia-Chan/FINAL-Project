@@ -44,14 +44,14 @@ def generate_table():
 # Window Declaration
 win = tk.Tk()
 win.geometry("600x600")
-win.title("Permutation Table")
+win.title("Grading System")
 win.resizable(False, False)
 
 # Window Design
 win.configure(bg="#5FBDFF")
 
 # Labels
-tk.Label(win, text="Permutation table").place(x=240, y=5)
+tk.Label(win, text="Grading System").place(x=240, y=5)
 tk.Label(win, text="Enter Number of Items:").place(x=130, y=30)
 tk.Label(win, text="Enter Base Value:").place(x=130, y=60)
 
@@ -71,11 +71,10 @@ btn_calcu.place(x=240, y=100)
 result_text = scrolledtext.ScrolledText(win, wrap=tk.WORD, width=30, height=20)
 result_text.place(x=150, y=150)
 
+# Passing Label
+grade_result_lbl = tk.Label(win, text="Result")
+grade_result_lbl.place(x=240, y=490)
+
+
 # Loop Window
 win.mainloop()
-
-
-
-#new formula
-
-# set value/Number of Items * base value +  
