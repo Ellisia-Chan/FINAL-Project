@@ -21,7 +21,8 @@ def generate_table():
 
     for i in range(score, -1, -1):
         num_score = f"Score {i}"
-        num_result = f"{num_score:<12}|  {base_value:<15,.2f}"
+        f_base = int(base_value)
+        num_result = f"{num_score:<12}|  {f_base}%"
 
         # Subtract the base increment only if score is greater than 0
         if i > 0:
