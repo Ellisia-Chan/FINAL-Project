@@ -1,45 +1,58 @@
 import tkinter as tk
 from tkinter import scrolledtext
+from tkinter import messagebox
 
 def generate_table():
-    # Get items in Window Entry
-    score = int(ent_item.get())
-    base = int(ent_base.get())
+    try:
+        # Get items in Window Entry
+        score = int(ent_item.get())
+        base = int(ent_base.get())
 
-    #constant
-    base_value = 100
+        # Constant
+        base_value = 100
 
-    # Conditions
-    if score > 0:
-        base_increment = base / score
-    else:
-        base_increment = 0
+        # Conditions
+        if score > 0:
+            base_increment = base / score
+        else:
+            base_increment = 0
 
-    # Generate Score and Base Numbers
-    result = f"{'Score':<12}|   {'Base':<15}\n"
-    result += "-" * 30 + "\n"
+        # Generate Table Header
+        result = f"{'Score':<12}|   {'Base':<15}\n"
+        result += "-" * 30 + "\n"
 
-    for i in range(score, -1, -1):
-        num_score = f"Score {i}"
-        f_base = int(base_value)
-        num_result = f"{num_score:<12}|  {f_base}%"
+        # Generate Score and Base Numbers
+        for i in range(score, 0, -1):
+            num_score = f"Score {i}"
+            f_base = int(base_value)
+            num_result = f"{num_score:<12}|  {f_base}%"
 
-        # Subtract the base increment only if score is greater than 0
-        if i > 0:
-            base_value -= base_increment
+            # Subtract the base increment only if the score is greater than 1
+            if i > 1:
+                base_value -= base_increment
 
-        # Result
-        result += num_result + "\n"
+            # Result
+            result += num_result + "\n"
 
-    # Clear previous content of the table
-    result_text.config(state=tk.NORMAL)
-    result_text.delete(1.0, tk.END)
+        # Calculate the final result based on the total score and base
+        final_result = int((base / 100) * score)
 
-    # Insert new content to the table
-    result_text.insert(tk.END, result)
+        # Update grade_result_lbl with the final result
+        grade_result_lbl.config(text=f"Passing Score: Score {final_result}")
 
-    # Disable editing of the table
-    result_text.config(state=tk.DISABLED)
+        # Clear previous content of the table
+        result_text.config(state=tk.NORMAL)
+        result_text.delete(1.0, tk.END)
+
+        # Insert new content to the table
+        result_text.insert(tk.END, result)
+
+        # Disable editing of the table
+        result_text.config(state=tk.DISABLED)
+
+    except ValueError:
+        messagebox.showerror("ERROR", "Invalid Input")
+
 
 
 # Window Declaration
@@ -73,8 +86,8 @@ result_text = scrolledtext.ScrolledText(win, wrap=tk.WORD, width=30, height=20)
 result_text.place(x=150, y=150)
 
 # Passing Label
-grade_result_lbl = tk.Label(win, text="Result")
-grade_result_lbl.place(x=240, y=490)
+grade_result_lbl = tk.Label(win, text=f"Passing Score:")
+grade_result_lbl.place(x=210, y=490)
 
 
 # Loop Window
