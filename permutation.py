@@ -6,6 +6,9 @@ def generate_table():
     score = int(ent_item.get())
     base = int(ent_base.get())
 
+    #constant
+    base_value = 100
+
     # Conditions
     if score > 0:
         base_increment = base / score
@@ -18,11 +21,11 @@ def generate_table():
 
     for i in range(score, -1, -1):
         num_score = f"Score {i}"
-        num_result = f"{num_score:<12}|  {base:<15,.2f}"
+        num_result = f"{num_score:<12}|  {base_value:<15,.2f}"
 
         # Subtract the base increment only if score is greater than 0
         if i > 0:
-            base -= base_increment
+            base_value -= base_increment
 
         # Result
         result += num_result + "\n"
@@ -70,3 +73,9 @@ result_text.place(x=150, y=150)
 
 # Loop Window
 win.mainloop()
+
+
+
+#new formula
+
+# set value/Number of Items * base value +  
