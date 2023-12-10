@@ -10,6 +10,10 @@ def generate_table():
 
         # Constant
         base_value = 100
+        base_percent = None
+
+        # Calculate the final result based on the total score and base
+        Passing_Score = int((base / 100) * score)
 
         # Conditions
         if score > 0:
@@ -22,23 +26,24 @@ def generate_table():
         result += "-" * 30 + "\n"
 
         # Generate Score and Base Numbers
-        for i in range(score, 0, -1):
+        for i in range(score, -1, -1):
             num_score = f"Score {i}"
+
             f_base = int(base_value)
             num_result = f"{num_score:<12}|  {f_base}%"
 
-            # Subtract the base increment only if the score is greater than 1
-            if i > 1:
+            # Subtract the base increment only if the score is greater and equal to 0
+            if i >= 0:
                 base_value -= base_increment
+            
+            if i == Passing_Score:
+                base_percent = f_base
 
             # Result
-            result += num_result + "\n"
-
-        # Calculate the final result based on the total score and base
-        final_result = int((base / 100) * score)
+            result += num_result + "\n"        
 
         # Update grade_result_lbl with the final result
-        grade_result_lbl.config(text=f"Passing Score: Score {final_result}")
+        grade_result_lbl.config(text=f"Passing Score: Score {Passing_Score} | {base_percent}%")
 
         # Clear previous content of the table
         result_text.config(state=tk.NORMAL)
@@ -52,8 +57,6 @@ def generate_table():
 
     except ValueError:
         messagebox.showerror("ERROR", "Invalid Input")
-
-
 
 # Window Declaration
 win = tk.Tk()
