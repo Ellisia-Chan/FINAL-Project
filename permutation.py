@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import scrolledtext
 from tkinter import messagebox
 
-# Define a function to generate and display a grading table
+# Function to generate and display a grading table
 def generate_table():
     try:
         # Get the number of items and base value from user input
@@ -17,7 +17,7 @@ def generate_table():
         # Calculate the passing score based on the total score and base
         Passing_Score = int((base / 100) * score)
 
-        # Calculate base increment based on conditions
+        # Calculate base increment based on number of Score Items
         if score > 0:
             base_increment = base / score
         else:
@@ -37,7 +37,7 @@ def generate_table():
             if i >= 0:
                 base_value -= base_increment
             
-            # Store base percent when i equals Passing_Score
+            # Store base percent when i var equals Passing_Score
             if i == Passing_Score:
                 base_percent = f_base
 
@@ -48,12 +48,12 @@ def generate_table():
         grade_result_lbl.config(text=f"Passing Score: Score {Passing_Score} | {base_percent}%")
 
         # Clear and update the scrollable text area with the table content
-        result_text.config(state=tk.NORMAL)
-        result_text.delete(1.0, tk.END)
-        result_text.insert(tk.END, result)
+        result_text_area.config(state=tk.NORMAL)
+        result_text_area.delete(1.0, tk.END)
+        result_text_area.insert(tk.END, result)
 
         # Disable editing of the table
-        result_text.config(state=tk.DISABLED)
+        result_text_area.config(state=tk.DISABLED)
 
     except ValueError:
         # Display an error message if invalid input is provided
@@ -86,8 +86,8 @@ btn_calcu = tk.Button(win, text="Calculate", command=generate_table, width=10, h
 btn_calcu.place(x=240, y=90)
 
 # Scrollable text area for displaying the grading table
-result_text = scrolledtext.ScrolledText(win, wrap=tk.WORD, width=30, height=20)
-result_text.place(x=150, y=150)
+result_text_area = scrolledtext.ScrolledText(win, wrap=tk.WORD, width=30, height=20)
+result_text_area.place(x=150, y=150)
 
 # Label for displaying the passing score
 grade_result_lbl = tk.Label(win, text=f"Passing Score:___________", font=("Helvetica", 12))
