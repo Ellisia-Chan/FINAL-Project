@@ -1,21 +1,23 @@
+# Import necessary modules from the Tkinter library
 import tkinter as tk
 from tkinter import scrolledtext
 from tkinter import messagebox
 
+# Define a function to generate and display a grading table
 def generate_table():
     try:
-        # Get items in Window Entry
+        # Get the number of items and base value from user input
         score = int(ent_item.get())
         base = int(ent_base.get())
 
-        # Constant
+        # Constants for calculations
         base_value = 100
         base_percent = None
 
-        # Calculate the final result based on the total score and base
+        # Calculate the passing score based on the total score and base
         Passing_Score = int((base / 100) * score)
 
-        # Conditions
+        # Calculate base increment based on conditions
         if score > 0:
             base_increment = base / score
         else:
@@ -25,73 +27,71 @@ def generate_table():
         result = f"{'Score':<12}|   {'Base':<15}\n"
         result += "-" * 30 + "\n"
 
-        # Generate Score and Base Numbers
+        # Generate Score and Base Numbers for the table
         for i in range(score, -1, -1):
             num_score = f"Score {i}"
-
             f_base = int(base_value)
             num_result = f"{num_score:<12}|  {f_base}%"
 
-            # Subtract the base increment only if the score is greater and equal to 0
+            # Subtract the base increment only if the score is greater than or equal to 0
             if i >= 0:
                 base_value -= base_increment
             
+            # Store base percent when i equals Passing_Score
             if i == Passing_Score:
                 base_percent = f_base
 
-            # Result
+            # Append the result to the table
             result += num_result + "\n"        
 
-        # Update grade_result_lbl with the final result
+        # Update the label with the final result
         grade_result_lbl.config(text=f"Passing Score: Score {Passing_Score} | {base_percent}%")
 
-        # Clear previous content of the table
+        # Clear and update the scrollable text area with the table content
         result_text.config(state=tk.NORMAL)
         result_text.delete(1.0, tk.END)
-
-        # Insert new content to the table
         result_text.insert(tk.END, result)
 
         # Disable editing of the table
         result_text.config(state=tk.DISABLED)
 
     except ValueError:
+        # Display an error message if invalid input is provided
         messagebox.showerror("ERROR", "Invalid Input")
 
-# Window Declaration
+# Create the main window
 win = tk.Tk()
 win.geometry("600x600")
 win.title("Grading System")
 win.resizable(False, False)
 
-# Window Design
+# Set the background color of the window
 win.configure(bg="#5FBDFF")
 
-# Labels
-tk.Label(win, text="Grading System").place(x=240, y=5)
-tk.Label(win, text="Enter Number of Items:").place(x=130, y=30)
-tk.Label(win, text="Enter Base Value:").place(x=130, y=60)
+# Labels for the GUI
+tk.Label(win, text="Grading System", font=("Helvetica", 10)).place(x=240, y=5)
+tk.Label(win, text="Enter Number of Items:", font=("Helvetica", 10)).place(x=120, y=30)
+tk.Label(win, text="Enter Base Value:", font=("Helvetica", 10)).place(x=130, y=60)
 
-# Entries
+# Entry fields for user input
 ent_item = tk.Entry(win)
 ent_base = tk.Entry(win)
 
-# Entry Grid
+# Place entry fields in the window
 ent_item.place(x=265, y=30)
 ent_base.place(x=265, y=60)
 
-# Button
-btn_calcu = tk.Button(win, text="Calculate", command=generate_table, width=10, height=2)
-btn_calcu.place(x=240, y=100)
+# Button to trigger the calculation and table generation
+btn_calcu = tk.Button(win, text="Calculate", command=generate_table, width=10, height=2, font=("Helvetica", 10))
+btn_calcu.place(x=240, y=90)
 
-# Scrollable Result Text
+# Scrollable text area for displaying the grading table
 result_text = scrolledtext.ScrolledText(win, wrap=tk.WORD, width=30, height=20)
 result_text.place(x=150, y=150)
 
-# Passing Label
-grade_result_lbl = tk.Label(win, text=f"Passing Score:")
-grade_result_lbl.place(x=210, y=490)
+# Label for displaying the passing score
+grade_result_lbl = tk.Label(win, text=f"Passing Score:___________", font=("Helvetica", 12))
+grade_result_lbl.place(x=170, y=490)
 
-
-# Loop Window
+# Start the Tkinter event loop
 win.mainloop()
