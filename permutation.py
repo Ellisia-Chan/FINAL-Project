@@ -62,7 +62,7 @@ def generate_table():
 # Create the main window
 win = tk.Tk()
 win.geometry("600x600")
-win.title("Grading System")
+win.title("TkGrader: A User-Friendly Grading Interface for Swift Score Computation")
 win.resizable(False, False)
 
 # Set the background color of the window
